@@ -27,3 +27,14 @@ Ideal para empresas que necesiten:
 - Tener un control detallado y visual de su inventario y reparaciones.
 
 ¡Una solución completa para mantener tu negocio en perfecto funcionamiento!
+
+## Colaboración
+
+🤝 **Colaboración Abierta**  
+Este proyecto es de código abierto y se invita a la comunidad a colaborar y mejorar el módulo. Si contribuyes, **por favor, asegúrate de mantener el reconocimiento del autor original** en cada modificación. Puedes:
+
+- Enviar *pull requests* para mejoras, nuevas funcionalidades o correcciones.
+- Abrir *issues* para reportar errores o proponer ideas.
+- Respetar la licencia y mantener los avisos de atribución en el código fuente.
+
+Tu colaboración es muy valiosa para el crecimiento y la mejora continua del proyecto. ¡Gracias por participar!
