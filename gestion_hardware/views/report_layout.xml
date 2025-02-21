@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="custom_external_layout">
+        <t t-call="web.html_container">
+            <div class="page" style="font-family: Arial, sans-serif; font-size: 12px; color: #333;">
+                <!-- Cabecera -->
+                <div class="header" style="text-align: center; padding: 10px 0; border-bottom: 2px solid #ddd;">
+                    <img src="/gestion_hardware/static/src/img/mi_logo.png" style="max-height: 170px;"/>
+                    <p style="margin: 0;">Dirección: Calle Ejemplo 123, Granada, España</p>
+                    <p style="margin: 0;">Teléfono: +34 662 443 794 | Email: alvaro@gestion.com</p>
+                </div>
+                <!-- Contenido -->
+                <div class="content" style="padding: 20px;">
+                    <t t-raw="0"/>
+                </div>
+                <!-- Pie de pagina -->
+                <div class="footer" style="text-align: center; padding: 10px 0; border-top: 2px solid #ddd; font-size: 10px;">
+                    <p>No se realizan cambios ni devoluciones pasados 15 dias de la compra del producto.</p>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

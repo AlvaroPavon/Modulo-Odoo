@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Registro en ir.model para el modelo custom de Mantenimiento.
+        El campo "name" debe ser igual al _name del modelo.
+        Esto generará el ID externo: gestion_hardware.model_x_gestion_mantenimiento -->
+    <record id="model_x_gestion_mantenimiento" model="ir.model">
+        <field name="name">x_gestion.mantenimiento</field>
+        <field name="model">x_gestion.mantenimiento</field>
+        <field name="info">Modelo para gestionar mantenimientos de hardware</field>
+    </record>
+</odoo>

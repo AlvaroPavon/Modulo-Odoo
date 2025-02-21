@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Template principal del reporte -->
+    <template id="report_ticket">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="gestion_hardware.report_ticket_document" t-lang="doc.cliente_id.lang if doc.cliente_id else 'es_ES'"/>
+            </t>
+        </t>
+    </template>
+
+    <!-- Documento del Ticket de Soporte -->
+    <template id="report_ticket_document">
+        <t t-set="doc" t-value="doc.with_context(lang=(doc.cliente_id.lang if doc.cliente_id else 'es_ES'))"/>
+        <!-- layout personalizado -->
+        <t t-call="gestion_hardware.custom_external_layout">
+            <!-- Encabezado del ticket -->
+            <div style="margin-bottom: 20px;">
+                <h1 style="text-align: center; color: rgb(231, 13, 235); margin-bottom: 5px;">Ticket</h1>
+                <hr style="border: 1px solid #ccc;"/>
+                <table style="width: 100%; margin-top: 20px;">
+                    <tr>
+                        <td style="width: 30%; font-weight: bold; padding: 5px;">Titulo:</td>
+                        <td style="padding: 5px;" t-esc="doc.name"/>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 5px;">Descripcion:</td>
+                        <td style="padding: 5px;" t-esc="doc.description"/>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 5px;">Fecha del Ticket:</td>
+                        <td style="padding: 5px;" t-esc="doc.fecha_ticket"/>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 5px;">Estado:</td>
+                        <td style="padding: 5px;" t-esc="doc.estado"/>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 5px;">Cliente:</td>
+                        <td style="padding: 5px;" t-esc="doc.cliente_id.name if doc.cliente_id else 'Cliente no asignado'"/>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Seccion de Productos -->
+            <div style="margin-top: 30px;">
+                <h2 style="color:rgb(231, 13, 235); margin-bottom: 10px;">Productos</h2>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background-color:rgb(176, 176, 176);">
+                            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Producto</th>
+                            <th style="border: 1px solid #ddd; padding: 8px; text-align: right;">Cantidad</th>
+                            <th style="border: 1px solid #ddd; padding: 8px; text-align: right;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="doc.ticket_line_ids" t-as="line">
+                            <tr>
+                                <td style="border: 1px solid #ddd; padding: 8px;" t-esc="line.hardware_id.name"/>
+                                <td style="border: 1px solid #ddd; padding: 8px; text-align: right;" t-esc="line.quantity"/>
+                                <td style="border: 1px solid #ddd; padding: 8px; text-align: right;" t-esc="line.line_total"/>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Seccion de Mantenimientos solo si existen -->
+            <t t-if="doc.maintenance_ids">
+                <div style="margin-top: 30px;">
+                    <h2 style="color:rgb(231, 13, 235); margin-bottom: 10px;">Mantenimientos Realizados</h2>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background-color:rgb(176, 176, 176);">
+                                <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Nombre</th>
+                                <th style="border: 1px solid #ddd; padding: 8px; text-align: right;">Costo</th>
+                                <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Descripcion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.maintenance_ids" t-as="mnt">
+                                <tr>
+                                    <td style="border: 1px solid #ddd; padding: 8px;" t-esc="mnt.name"/>
+                                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right;" t-esc="mnt.cost"/>
+                                    <td style="border: 1px solid #ddd; padding: 8px;" t-esc="mnt.description"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+            
+            <!-- Total del Ticket -->
+            <div style="margin-top: 20px; text-align: right; font-size: 16px; font-weight: bold;">
+                <h3>Total de venta: <span t-esc="doc.total_price"/> Euros;</h3>
+            </div>
+        </t>
+    </template>
+
+    <!-- Definicion del reporte PDF -->
+    <record id="action_report_ticket" model="ir.actions.report">
+        <field name="name">Ticket de Soporte</field>
+        <field name="model">gestion.ticket</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gestion_hardware.report_ticket</field>
+        <field name="binding_model_id" ref="model_gestion_ticket"/>
+        <field name="binding_type">report</field>
+        <field name="attachment_use">False</field>
+    </record>
+</odoo>

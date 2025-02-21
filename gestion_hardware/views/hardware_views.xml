@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Vista de formulario para Hardware -->
+    <record id="view_hardware_form" model="ir.ui.view">
+        <field name="name">gestion.hardware.form</field>
+        <field name="model">gestion.hardware</field>
+        <field name="arch" type="xml">
+            <form string="Hardware">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="modelo"/>
+                        <field name="precio"/>
+                        <field name="stock"/>
+                        <field name="marca"/>
+                    </group>
+                    <group>
+                        <field name="imagen" widget="image" style="width: 265px; height:265px;"/>
+                        <field name="user_id"/>
+                    </group>
+                    <group>
+                        <field name="ticket_count" readonly="1"/>
+                        <button name="action_view_tickets" type="object" string="Ver Tickets"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de lista para Hardware -->
+    <record id="view_hardware_list" model="ir.ui.view">
+        <field name="name">gestion.hardware.list</field>
+        <field name="model">gestion.hardware</field>
+        <field name="arch" type="xml">
+            <list string="Hardware">
+                <field name="name"/>
+                <field name="precio"/>
+                <field name="stock"/>
+                <field name="ticket_count"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de busqueda para Hardware -->
+    <record id="view_hardware_search" model="ir.ui.view">
+        <field name="name">gestion.hardware.search</field>
+        <field name="model">gestion.hardware</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Hardware">
+                <field name="name"/>
+                <!-- Filtros personalizados -->
+                <filter name="filter_precio_alto" string="Precio Alto" domain="[('precio','>=',1000)]"/>
+                <filter name="filter_sin_stock" string="Sin Stock" domain="[('stock','=',0)]"/>
+                <filter name="filter_con_stock" string="Con Stock" domain="[('stock','>',0)]"/>
+                <filter string="Marca" name="filter_marca" context="{'group_by':'marca'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Accion para Hardware -->
+    <record id="action_hardware" model="ir.actions.act_window">
+        <field name="name">Hardware</field>
+        <field name="res_model">gestion.hardware</field>
+        <field name="view_mode">list,form,search</field>
+        <field name="search_view_id" ref="view_hardware_search"/>
+    </record>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Menu principal: Gestion de Hardware -->
+    <record id="menu_gestion_hardware_app" model="ir.ui.menu">
+        <field name="name">Gestion de Hardware</field>
+        <field name="sequence">1</field>
+        <field name="web_icon" eval="'base/static/img/icons/gest_hardware.png'"/>
+    </record>
+
+    <!-- Submenu: Hardware -->
+    <record id="submenu_hardware_list" model="ir.ui.menu">
+        <field name="name">Hardware</field>
+        <field name="parent_id" ref="menu_gestion_hardware_app"/>
+        <field name="action" ref="action_hardware"/>
+        <field name="sequence">1</field>
+    </record>
+
+    <!-- Submenu: Tickets -->
+    <record id="submenu_ticket_list" model="ir.ui.menu">
+        <field name="name">Tickets</field>
+        <field name="parent_id" ref="menu_gestion_hardware_app"/>
+        <field name="action" ref="action_ticket"/>
+        <field name="sequence">2</field>
+    </record>
+
+    <!-- Submenu: Mantenimientos -->
+    <record id="submenu_mantenimiento_list" model="ir.ui.menu">
+        <field name="name">Mantenimientos</field>
+        <field name="parent_id" ref="menu_gestion_hardware_app"/>
+        <field name="action" ref="action_mantenimiento"/>
+        <field name="sequence">3</field>
+    </record>
+
+    <!-- Submenu: clientes -->
+    <record id="submenu_clientes_ticket" model="ir.ui.menu">
+        <field name="name">Clientes</field>
+        <field name="parent_id" ref="menu_gestion_hardware_app"/>
+        <field name="action" ref="action_gestion_cliente"/>
+        <field name="sequence">4</field>
+    </record>
+</odoo>

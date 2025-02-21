@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Vista de formulario para Ticket -->
+    <record id="view_ticket_form" model="ir.ui.view">
+        <field name="name">gestion.ticket.form</field>
+        <field name="model">gestion.ticket</field>
+        <field name="arch" type="xml">
+            <form string="Ticket de Soporte">
+                <header>
+                    <field name="estado" widget="statusbar"
+                        statusbar_visible="pendiente,pagado"
+                        decoration-danger="estado=='pendiente'"
+                        decoration-success="estado=='pagado'"/>
+                    <button name="toggle_estado" type="object" string="Cambiar Estado" class="oe_highlight"/>
+                    <button name="action_print_ticket" type="object" string="Imprimir Ticket" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="fecha_creacion"/>
+                        <field name="fecha_ticket"/>
+                    </group>
+                    <group>
+                        <field name="cliente_id"/>
+                    </group>
+                    <group>
+                        <field name="partner_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="ticket_line_ids" widget="one2many_list"
+                            options="{'list_view_ref': 'gestion_hardware.ticket_line_list_view'}"/>
+                    </group>
+                    <group>
+                        <field name="total_price" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                    <group>
+                        <field name="maintenance_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de lista para Ticket -->
+    <record id="view_ticket_list" model="ir.ui.view">
+        <field name="name">gestion.ticket.list</field>
+        <field name="model">gestion.ticket</field>
+        <field name="arch" type="xml">
+            <list string="Tickets de Soporte">
+                <field name="name"/>
+                <field name="fecha_ticket"/>
+                <field name="pagado" widget="html"/>
+                <field name="total_price"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de busqueda para Ticket -->
+    <record id="view_ticket_search" model="ir.ui.view">
+        <field name="name">gestion.ticket.search</field>
+        <field name="model">gestion.ticket</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Tickets">
+                <field name="name"/>
+                <filter name="filter_pagado" string="Pagado" domain="[('estado','=','pagado')]"/>
+                <filter name="filter_pendiente" string="Pendiente" domain="[('estado','=','pendiente')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción para abrir la vista de Tickets -->
+    <record id="action_ticket" model="ir.actions.act_window">
+        <field name="name">Tickets</field>
+        <field name="res_model">gestion.ticket</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+
+    <!-- Vista externa para las líneas de ticket (Ticket Line) -->
+    <record id="ticket_line_list_view" model="ir.ui.view">
+        <field name="name">gestion.ticket.line.list</field>
+        <field name="model">gestion.ticket.line</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="hardware_id"/>
+                <field name="quantity"/>
+                <field name="line_total" readonly="1"/>
+            </list>
+        </field>
+    </record>
+</odoo>

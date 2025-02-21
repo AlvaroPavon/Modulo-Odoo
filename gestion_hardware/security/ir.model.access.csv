@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gestion_hardware,Gestión de Hardware,gestion_hardware.model_gestion_hardware,base.group_user,1,1,1,1
+access_gestion_ticket,Gestión de Ticket,gestion_hardware.model_gestion_ticket,base.group_user,1,1,1,1
+access_gestion_ticket_line,Gestión de Línea de Ticket,gestion_hardware.model_gestion_ticket_line,base.group_user,1,1,1,1
+access_gestion_mantenimiento,Gestión de Mantenimiento,gestion_hardware.model_x_gestion_mantenimiento,base.group_user,1,1,1,1
