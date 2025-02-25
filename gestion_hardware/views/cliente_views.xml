@@ -4,25 +4,16 @@
     <record id="view_gestion_cliente_form" model="ir.ui.view">
         <field name="name">gestion.cliente.form.custom</field>
         <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <form string="Cliente">
-                <header>
-                    <button name="action_view_tickets" type="object"
-                            string="Ver Tickets" class="oe_stat_button" icon="fa-ticket"/>
-                </header>
-                <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="phone"/>
-                        <field name="email"/>
-                        <field name="street"/>
-                    </group>
-                    <group>
-                        <!-- Lista de tickets asociados -->
-                        <field name="ticket_ids" widget="one2many_list"/>
-                    </group>
-                </sheet>
-            </form>
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Tickets">
+                    <field name="ticket_ids" options="{
+                    'list_view_ref': 'gestion_hardware.view_ticket_list',
+                    'form_view_ref': 'gestion_hardware.view_ticket_form'
+                    }"/>
+                </page>
+            </xpath>
         </field>
     </record>
 
